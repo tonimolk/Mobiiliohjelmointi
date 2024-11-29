@@ -1,7 +1,9 @@
+import React from 'react';
+import { View, Button} from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from 'react-navigation-stack';
 import { PaperProvider, MD3LightTheme, adaptNavigationTheme } from 'react-native-paper';
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(RouteConfigs, StackNavigatorConfig);
 const { LightTheme } = adaptNavigationTheme({ reactNavigationLight: DefaultTheme });
 
 function HomeScreen({ navigation }) {
