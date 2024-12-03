@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Button} from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createStackNavigator } from 'react-navigation-stack';
 import { PaperProvider, MD3LightTheme, adaptNavigationTheme } from 'react-native-paper';
-const Stack = createStackNavigator(RouteConfigs, StackNavigatorConfig);
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 const { LightTheme } = adaptNavigationTheme({ reactNavigationLight: DefaultTheme });
+const Tab = createBottomTabNavigator();
 
 function HomeScreen({ navigation }) {
   return (
@@ -19,11 +20,7 @@ function HomeScreen({ navigation }) {
 
 function MusicScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title="Go to Music"
-        onPress={() => navigation.navigate('Music')}
-      />
+    <View style={{ flex: 2, alignItems: 'center', justifyContent: 'space-around' }}>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
@@ -33,10 +30,10 @@ export default function App() {
   return (
     <PaperProvider theme={MD3LightTheme}>
       <NavigationContainer theme={LightTheme}>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Music" component={MusicScreen} />
-        </Stack.Navigator>
+        <Tab.Navigator initialRouteName="Home">
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Music" component={MusicScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
   ); 
