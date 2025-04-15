@@ -20,9 +20,9 @@ function HomeScreen({ }) {
 
 function MusicScreen({ }) {
   const musicData = [
-    { id: 1, title: 'Song 1', artist: 'Artist 1', link: 'https://www.youtube.com/watch?v=example1' },
-    { id: 2, title: 'Song 2', artist: 'Artist 2', link: 'https://www.youtube.com/watch?v=example2' },
-    { id: 3, title: 'Song 3', artist: 'Artist 3', link: 'https://www.youtube.com/watch?v=example3' },
+    { id: 1, title: 'Dancing Queen', artist: 'Abba', link: 'https://www.youtube.com/watch?v=xFrGuyw1V8s' },
+    { id: 2, title: 'Nothing else matters', artist: 'Metallica', link: 'https://www.youtube.com/watch?v=tAGnKpE4NCI' },
+    { id: 3, title: 'Cha Cha Cha', artist: 'Käärijä', link: 'https://www.youtube.com/watch?v=G7KNmW9a75Y' },
   ];
 
   return (
