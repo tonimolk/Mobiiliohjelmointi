@@ -11,9 +11,9 @@ const { LightTheme } = adaptNavigationTheme({ reactNavigationLight: DefaultTheme
 const Tab = createBottomTabNavigator();
 
 const musicData = [
-  { id: 1, title: 'Dancing Queen', artist: 'ABBA', link: 'https://www.youtube.com/watch?v=xFrGuyw1V8s', lyrics: 'You can dance, you can jive, having the time of your life...' },
-  { id: 2, title: 'Nothing Else Matters', artist: 'Metallica', link: 'https://www.youtube.com/watch?v=tAGnKpE4NCI', lyrics: 'So close, no matter how far, couldn’t be much more from the heart...' },
-  { id: 3, title: 'Cha Cha Cha', artist: 'Käärijä', link: 'https://www.youtube.com/watch?v=G7KNmW9a75Y', lyrics: 'Cha cha cha, en haluu olla yksin...' },
+  { id: 1, title: 'Dancing Queen', artist: 'ABBA', link: 'https://www.youtube.com/embed/watch?v=xFrGuyw1V8s', lyrics: 'You can dance, you can jive, having the time of your life...' },
+  { id: 2, title: 'Nothing Else Matters', artist: 'Metallica', link: 'https://www.youtube.com/embed/watch?v=tAGnKpE4NCI', lyrics: 'So close, no matter how far, couldn’t be much more from the heart...' },
+  { id: 3, title: 'Cha Cha Cha', artist: 'Käärijä', link: 'https://www.youtube.com/embed/watch?v=G7KNmW9a75Y', lyrics: 'Cha cha cha, en haluu olla yksin...' },
 ];
 
 function HomeScreen() {
@@ -27,11 +27,11 @@ function HomeScreen() {
 function MusicScreen({ favourites = [], setFavourites = () => {} }) {
   const [visibleLyrics, setVisibleLyrics] = useState({});
 
-  const toggleLyrics = (id) => {
+  const Lyrics = (id) => {
     setVisibleLyrics(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const toggleFavourite = (song) => {
+  const Favourite = (song) => {
     if (favourites.some(item => item.id === song.id)) {
       setFavourites(prev => prev.filter(item => item.id !== song.id));
     } else {
@@ -53,12 +53,20 @@ function MusicScreen({ favourites = [], setFavourites = () => {} }) {
               <Text style={{ marginTop: 10 }}>{song.lyrics}</Text>
             )}
           </Card.Content>
+
+          <WebView
+            source={{ uri: song.link }}
+            style={{ height: 200, margin: 10 }}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+        />
+
           <Card.Actions>
             <Button onPress={() => Linking.openURL(song.link)}>Watch on YouTube</Button>
-            <Button onPress={() => toggleLyrics(song.id)}>
+            <Button onPress={() => Lyrics(song.id)}>
               {visibleLyrics[song.id] ? 'Hide Lyrics' : 'Show Lyrics'}
             </Button>
-            <TouchableOpacity onPress={() => toggleFavourite(song)}>
+            <TouchableOpacity onPress={() => Favourite(song)}>
             <FontAwesome 
               name={isFavourite(song.id) ? 'heart' : 'heart-o'} 
               size={24} 
@@ -86,6 +94,7 @@ function FavouritesScreen({ favourites = [] }) {
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{song.title}</Text>
               <Text style={{ fontSize: 14, color: 'gray' }}>{song.artist}</Text>
             </Card.Content>
+            
           </Card>
         ))
       )}
@@ -106,7 +115,7 @@ export default function App() {
 
               if (route.name === 'Home') {
                 iconName = 'home';
-                return <AntDesign name={iconName} size={24} color="red" />;
+                return <FontAwesome name={iconName} size={24} color="red" />;
               } else if (route.name === 'Music') {
                 iconName = 'music';
                 return <FontAwesome name={iconName} size={24} color="red" />;
