@@ -5,7 +5,8 @@ import { PaperProvider, adaptNavigationTheme, Text, Card, Button } from 'react-n
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-
+import FavouritesScreen from './Favourites'
+import MusicScreen from './Music';
 
 const { LightTheme } = adaptNavigationTheme({ reactNavigationLight: DefaultTheme });
 const Tab = createBottomTabNavigator();
@@ -24,83 +25,7 @@ function HomeScreen() {
   );
 }
 
-function MusicScreen({ favourites = [], setFavourites = () => {} }) {
-  const [visibleLyrics, setVisibleLyrics] = useState({});
 
-  const Lyrics = (id) => {
-    setVisibleLyrics(prev => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  const Favourite = (song) => {
-    if (favourites.some(item => item.id === song.id)) {
-      setFavourites(prev => prev.filter(item => item.id !== song.id));
-    } else {
-      setFavourites(prev => [...prev, song]);
-    }
-  };
-
-  const isFavourite = (id) => favourites.some(song => song.id === id);
-
-  return (
-    <ScrollView theme={LightTheme} style={{ flex: 1, padding: 16 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 16 }}>Welcome to Music</Text>
-      {musicData.map((song) => (
-        <Card key={song.id} style={{ marginBottom: 16 }}>
-          <Card.Content>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{song.title}</Text>
-            <Text style={{ fontSize: 14, color: 'gray' }}>{song.artist}</Text>
-            {visibleLyrics[song.id] && (
-              <Text style={{ marginTop: 10 }}>{song.lyrics}</Text>
-            )}
-          </Card.Content>
-
-          <WebView
-            source={{ uri: song.link }}
-            style={{ height: 200, margin: 10 }}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-        />
-
-          <Card.Actions>
-            <Button onPress={() => Linking.openURL(song.link)}>Watch on YouTube</Button>
-            <Button onPress={() => Lyrics(song.id)}>
-              {visibleLyrics[song.id] ? 'Hide Lyrics' : 'Show Lyrics'}
-            </Button>
-            <TouchableOpacity onPress={() => Favourite(song)}>
-            <FontAwesome 
-              name={isFavourite(song.id) ? 'heart' : 'heart-o'} 
-              size={24} 
-              color={isFavourite(song.id) ? 'red' : 'gray'} 
-              style={{ marginLeft: 8 }}
-            />
-            </TouchableOpacity>
-          </Card.Actions>
-        </Card>
-      ))}
-    </ScrollView>
-  );
-}
-
-function FavouritesScreen({ favourites = [] }) {
-  return (
-    <ScrollView style={{ flex: 1, padding: 16 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 16 }}>Your Favourites</Text>
-      {favourites.length === 0 ? (
-        <Text>No favourites yet. ❤️</Text>
-      ) : (
-        favourites.map(song => (
-          <Card key={song.id} style={{ marginBottom: 16 }}>
-            <Card.Content>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{song.title}</Text>
-              <Text style={{ fontSize: 14, color: 'gray' }}>{song.artist}</Text>
-            </Card.Content>
-            
-          </Card>
-        ))
-      )}
-    </ScrollView>
-  );
-}
 
 export default function App() {
   const [favourites, setFavourites] = useState([]);
@@ -137,4 +62,3 @@ export default function App() {
     </PaperProvider>
   ); 
 }
-
