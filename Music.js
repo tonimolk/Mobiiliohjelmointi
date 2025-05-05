@@ -13,7 +13,7 @@ const { LightTheme } = adaptNavigationTheme({ reactNavigationLight: DefaultTheme
 const musicData = [
     { id: 1, title: 'Dancing Queen', artist: 'ABBA', link: 'https://www.youtube.com/embed/watch?v=xFrGuyw1V8s', lyrics: 'You can dance, you can jive, having the time of your life...' },
     { id: 2, title: 'Nothing Else Matters', artist: 'Metallica', link: 'https://www.youtube.com/embed/watch?v=tAGnKpE4NCI', lyrics: 'So close, no matter how far, couldn’t be much more from the heart...' },
-    { id: 3, title: 'Cha Cha Cha', artist: 'Käärijä', link: 'https://www.youtube.com/embed/watch?v=G7KNmW9a75Y', lyrics: 'Rankka viikko ja paljpm pitkii päiviä takan...' },
+    { id: 3, title: 'Cha Cha Cha', artist: 'Käärijä', link: 'https://www.youtube.com/embed/watch?v=G7KNmW9a75Y', lyrics: 'Rankka viikko ja paljon pitkii päiviä takan...' },
 ];
 
 function MusicScreen({ favourites = [], setFavourites = () => {} }) {
